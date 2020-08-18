@@ -222,7 +222,7 @@ define(["require", "exports", "mod/Mod", "mod/ModRegistry", "item/Items", "item/
     ], Town.prototype, "doodadWoodCommodeStore", void 0);
     __decorate([
         ModRegistry_1.default.item("Wood Commode", {
-            durability: 10,
+            durability: 15,
             use: [IAction_1.ActionType.Build],
             recipe: {
                 components: [
@@ -245,5 +245,67 @@ define(["require", "exports", "mod/Mod", "mod/ModRegistry", "item/Items", "item/
             burnsLike: [IItem_1.ItemType.Log, IItem_1.ItemType.Log, IItem_1.ItemType.Log, IItem_1.ItemType.WoodenDowels, IItem_1.ItemType.WoodenDowels]
         })
     ], Town.prototype, "itemWoodCommode", void 0);
+    __decorate([
+        ModRegistry_1.default.doodad("Wood Round Table", {
+            pickUp: [ModRegistry_1.Registry().get("itemWoodRoundTable")],
+            weightCapacity: 3,
+            blockMove: true,
+            canBreak: true,
+            repairItem: ModRegistry_1.Registry().get("itemWoodRoundTable"),
+            isFlammable: true,
+            particles: {
+                r: 132,
+                g: 96,
+                b: 44
+            },
+            reduceDurabilityOnGather: true,
+            burnsLike: [ModRegistry_1.Registry().get("itemWoodRoundTable")],
+            preservationChance: .2,
+            isTall: true,
+            spawnOnWorldGen: {
+                [IBiome_1.BiomeType.Coastal]: {
+                    [WorldZ_1.WorldZ.Cave]: {
+                        [ITerrain_1.TerrainType.WoodenFlooring]: 5,
+                        [ITerrain_1.TerrainType.CobblestoneFlooring]: 5
+                    },
+                    [WorldZ_1.WorldZ.Overworld]: {
+                        [ITerrain_1.TerrainType.WoodenFlooring]: 1,
+                        [ITerrain_1.TerrainType.CobblestoneFlooring]: 1
+                    }
+                },
+                [IBiome_1.BiomeType.Arid]: {
+                    [WorldZ_1.WorldZ.Overworld]: {
+                        [ITerrain_1.TerrainType.SandstoneFlooring]: 1,
+                        [ITerrain_1.TerrainType.ClayFlooring]: 1
+                    }
+                }
+            }
+        })
+    ], Town.prototype, "doodadWoodRoundTable", void 0);
+    __decorate([
+        ModRegistry_1.default.item("Wood Round Table", {
+            durability: 15,
+            use: [IAction_1.ActionType.Build],
+            recipe: {
+                components: [
+                    Items_1.RecipeComponent(ModRegistry_1.Registry().get("itemWoodBoard"), 4, 4),
+                    Items_1.RecipeComponent(ModRegistry_1.Registry().get("itemCopperNail"), 3, 3),
+                    Items_1.RecipeComponent(IItem_1.ItemTypeGroup.Hammer, 1, 0),
+                    Items_1.RecipeComponent(ModRegistry_1.Registry().get("itemGroupSaw"), 1, 0),
+                ],
+                skill: IHuman_1.SkillType.Woodworking,
+                level: IItem_1.RecipeLevel.Advanced,
+                reputation: 25,
+            },
+            disassemble: true,
+            flammable: true,
+            worth: 75,
+            doodadContainer: ModRegistry_1.Registry().get("doodadWoodRoundTable"),
+            onUse: {
+                [IAction_1.ActionType.Build]: ModRegistry_1.Registry().get("doodadWoodRoundTable")
+            },
+            burnsLike: [IItem_1.ItemType.Log, IItem_1.ItemType.Log, IItem_1.ItemType.Log, IItem_1.ItemType.WoodenDowels, IItem_1.ItemType.WoodenDowels]
+        })
+    ], Town.prototype, "itemWoodRoundTable", void 0);
     exports.default = Town;
 });

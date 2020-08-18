@@ -12,4 +12,6 @@ export default class Town extends Mod {
     itemCopperNail: ItemType;
     doodadWoodCommodeStore: DoodadType;
     itemWoodCommode: ItemType;
+    doodadWoodRoundTable: DoodadType;
+    itemWoodRoundTable: ItemType;
 }

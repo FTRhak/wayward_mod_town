@@ -153,7 +153,7 @@ export default class Town extends Mod {
   })
   public itemWoodBoard: ItemType;
   //#endregion
-  
+
   //#region Metal
   @Register.item("Copper Rods", {
     durability: 20,
@@ -196,8 +196,11 @@ export default class Town extends Mod {
   })
   public itemCopperNail: ItemType;
   //#endregion
-  
 
+
+  //#region Furniture
+
+  //#region Comode
   @Register.doodad("Wood Commode Store", {
     pickUp: [Registry<Town>().get("itemWoodCommode")],
     weightCapacity: 30,
@@ -206,35 +209,34 @@ export default class Town extends Mod {
     repairItem: Registry<Town>().get("itemWoodCommode"),
     isFlammable: true,
     particles: {
-        r: 132,
-        g: 96,
-        b: 44
+      r: 132,
+      g: 96,
+      b: 44
     },
     reduceDurabilityOnGather: true,
     burnsLike: [Registry<Town>().get("itemWoodCommode")],
     preservationChance: .2,
     isTall: true,
     spawnOnWorldGen: {
-        [BiomeType.Coastal]: {
-            [WorldZ.Cave]: {
-                [TerrainType.WoodenFlooring]: 5,
-                [TerrainType.CobblestoneFlooring]: 5
-            },
-            [WorldZ.Overworld]: {
-                [TerrainType.WoodenFlooring]: 1,
-                [TerrainType.CobblestoneFlooring]: 1
-            }
+      [BiomeType.Coastal]: {
+        [WorldZ.Cave]: {
+          [TerrainType.WoodenFlooring]: 5,
+          [TerrainType.CobblestoneFlooring]: 5
         },
-        [BiomeType.Arid]: {
-            [WorldZ.Overworld]: {
-                [TerrainType.SandstoneFlooring]: 1,
-                [TerrainType.ClayFlooring]: 1
-            }
+        [WorldZ.Overworld]: {
+          [TerrainType.WoodenFlooring]: 1,
+          [TerrainType.CobblestoneFlooring]: 1
         }
+      },
+      [BiomeType.Arid]: {
+        [WorldZ.Overworld]: {
+          [TerrainType.SandstoneFlooring]: 1,
+          [TerrainType.ClayFlooring]: 1
+        }
+      }
     }
   })
   public doodadWoodCommodeStore: DoodadType;
-  //#region Furniture
   @Register.item("Wood Commode", {
     durability: 15,
     use: [ActionType.Build],
@@ -259,6 +261,72 @@ export default class Town extends Mod {
     burnsLike: [ItemType.Log, ItemType.Log, ItemType.Log, ItemType.WoodenDowels, ItemType.WoodenDowels]
   })
   public itemWoodCommode: ItemType;
+  //#endregion
+
+  //#region Tables
+  @Register.doodad("Wood Round Table", {
+    pickUp: [Registry<Town>().get("itemWoodRoundTable")],
+    weightCapacity: 3,
+    blockMove: true,
+    canBreak: true,
+    repairItem: Registry<Town>().get("itemWoodRoundTable"),
+    isFlammable: true,
+    particles: {
+      r: 132,
+      g: 96,
+      b: 44
+    },
+    reduceDurabilityOnGather: true,
+    burnsLike: [Registry<Town>().get("itemWoodRoundTable")],
+    preservationChance: .2,
+    isTall: true,
+    spawnOnWorldGen: {
+      [BiomeType.Coastal]: {
+        [WorldZ.Cave]: {
+          [TerrainType.WoodenFlooring]: 5,
+          [TerrainType.CobblestoneFlooring]: 5
+        },
+        [WorldZ.Overworld]: {
+          [TerrainType.WoodenFlooring]: 1,
+          [TerrainType.CobblestoneFlooring]: 1
+        }
+      },
+      [BiomeType.Arid]: {
+        [WorldZ.Overworld]: {
+          [TerrainType.SandstoneFlooring]: 1,
+          [TerrainType.ClayFlooring]: 1
+        }
+      }
+    }
+  })
+  public doodadWoodRoundTable: DoodadType;
+
+  @Register.item("Wood Round Table", {
+    durability: 15,
+    use: [ActionType.Build],
+    recipe: {
+      components: [
+        RecipeComponent(Registry<Town>().get("itemWoodBoard"), 4, 4),
+        RecipeComponent(Registry<Town>().get("itemCopperNail"), 3, 3),
+        RecipeComponent(ItemTypeGroup.Hammer, 1, 0),
+        RecipeComponent(Registry<Town>().get("itemGroupSaw"), 1, 0),
+      ],
+      skill: SkillType.Woodworking,
+      level: RecipeLevel.Advanced,
+      reputation: 25,
+    },
+    disassemble: true,
+    flammable: true,
+    worth: 75,
+    doodadContainer: Registry<Town>().get("doodadWoodRoundTable"),
+    onUse: {
+      [ActionType.Build]: Registry<Town>().get("doodadWoodRoundTable")
+    },
+    burnsLike: [ItemType.Log, ItemType.Log, ItemType.Log, ItemType.WoodenDowels, ItemType.WoodenDowels]
+  })
+  public itemWoodRoundTable: ItemType;
+  //#endregion
+
   //#endregion
   //#endregion
 }
