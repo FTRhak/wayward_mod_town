@@ -1,0 +1,52 @@
+{
+	"extends": "English",
+	"dictionaries": {
+		"item": {
+			"modTownStoneSaw": [
+				"stone saw",
+				"Stone Saw"
+			],
+			"modTownCopperSaw": [
+				"copper saw",
+				"Copper Saw"
+			],
+			"modTownIronSaw": [
+				"iron saw",
+				"Iron Saw"
+			],
+			"modTownWoodTimber": [
+				"wood timber",
+				"Wood Timber"
+			],
+			"modTownWoodBoard": [
+				"wood board",
+				"Wood Board"
+			]
+		},
+		"itemGroup": {
+			"modTownSaw": [
+				"saw",
+				"Saw"
+			]
+		}
+	},
+	"pluralizationRules": {
+		"uncountables": [
+			"mayonnaise",
+			"warm farina",
+			"cold farina",
+			"warm cream of carrot",
+			"cold cream of carrot",
+			"warm cream of corn",
+			"cold cream of corn",
+			"warm cream of mushroom",
+			"cold cream of mushroom",
+			"warm tomato soup",
+			"cold tomato soup",
+			"warm meat stew",
+			"cold meat stew",
+			"cold chicken soup",
+			"warm chicken soup"
+		]
+	}
+}

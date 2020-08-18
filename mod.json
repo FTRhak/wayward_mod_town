@@ -1,0 +1,17 @@
+{
+	"name": "Town",
+	"description": "Can build town",
+	"version": "0.0.1",
+	"author": "FTR",
+	"file": "out/town",
+	"languages": [
+		"lang/english"
+	],
+	"waywardVersion": "2.9.3",
+	"multiplayer": "compatible",
+	"allowUnlockingMilestones": true,
+	"tags": [
+		"Item"
+	],
+	"publishedFileId": "1855688337"
+}
