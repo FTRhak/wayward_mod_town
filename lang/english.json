@@ -29,6 +29,10 @@
 			"modTownCopperNail": [
 				"copper nail",
 				"Copper Nail"
+			],
+			"modTownWoodCommode": [
+				"wood commode",
+				"Wood Commode"
 			]
 		},
 		"itemGroup": {
@@ -36,8 +40,15 @@
 				"saw",
 				"Saw"
 			]
+		},
+		"doodad": {
+			"modTownWoodCommodeStore": [
+				"wood commode store",
+				"Wood Commode Store"
+			]
 		}
 	},
+
 	"pluralizationRules": {
 		"uncountables": [
 			"mayonnaise",

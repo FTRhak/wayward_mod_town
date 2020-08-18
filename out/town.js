@@ -4,7 +4,7 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
-define(["require", "exports", "mod/Mod", "mod/ModRegistry", "item/Items", "item/IItem", "entity/IHuman", "doodad/IDoodad", "entity/IEntity"], function (require, exports, Mod_1, ModRegistry_1, Items_1, IItem_1, IHuman_1, IDoodad_1, IEntity_1) {
+define(["require", "exports", "mod/Mod", "mod/ModRegistry", "item/Items", "item/IItem", "entity/IHuman", "doodad/IDoodad", "entity/IEntity", "entity/action/IAction", "game/IBiome", "game/WorldZ", "tile/ITerrain"], function (require, exports, Mod_1, ModRegistry_1, Items_1, IItem_1, IHuman_1, IDoodad_1, IEntity_1, IAction_1, IBiome_1, WorldZ_1, ITerrain_1) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     class Town extends Mod_1.default {
@@ -165,6 +165,7 @@ define(["require", "exports", "mod/Mod", "mod/ModRegistry", "item/Items", "item/
                 skill: IHuman_1.SkillType.Blacksmithing,
                 reputation: 25
             },
+            repairAndDisassemblyRequiresFire: true,
             disassemble: false,
             worth: 35,
             groups: [
@@ -183,24 +184,65 @@ define(["require", "exports", "mod/Mod", "mod/ModRegistry", "item/Items", "item/
         })
     ], Town.prototype, "itemCopperNail", void 0);
     __decorate([
+        ModRegistry_1.default.doodad("Wood Commode Store", {
+            pickUp: [ModRegistry_1.Registry().get("itemWoodCommode")],
+            weightCapacity: 30,
+            blockMove: true,
+            canBreak: true,
+            repairItem: ModRegistry_1.Registry().get("itemWoodCommode"),
+            isFlammable: true,
+            particles: {
+                r: 132,
+                g: 96,
+                b: 44
+            },
+            reduceDurabilityOnGather: true,
+            burnsLike: [ModRegistry_1.Registry().get("itemWoodCommode")],
+            preservationChance: .2,
+            isTall: true,
+            spawnOnWorldGen: {
+                [IBiome_1.BiomeType.Coastal]: {
+                    [WorldZ_1.WorldZ.Cave]: {
+                        [ITerrain_1.TerrainType.WoodenFlooring]: 5,
+                        [ITerrain_1.TerrainType.CobblestoneFlooring]: 5
+                    },
+                    [WorldZ_1.WorldZ.Overworld]: {
+                        [ITerrain_1.TerrainType.WoodenFlooring]: 1,
+                        [ITerrain_1.TerrainType.CobblestoneFlooring]: 1
+                    }
+                },
+                [IBiome_1.BiomeType.Arid]: {
+                    [WorldZ_1.WorldZ.Overworld]: {
+                        [ITerrain_1.TerrainType.SandstoneFlooring]: 1,
+                        [ITerrain_1.TerrainType.ClayFlooring]: 1
+                    }
+                }
+            }
+        })
+    ], Town.prototype, "doodadWoodCommodeStore", void 0);
+    __decorate([
         ModRegistry_1.default.item("Wood Commode", {
-            durability: 100,
+            durability: 10,
+            use: [IAction_1.ActionType.Build],
             recipe: {
                 components: [
                     Items_1.RecipeComponent(ModRegistry_1.Registry().get("itemWoodBoard"), 5, 5),
                     Items_1.RecipeComponent(ModRegistry_1.Registry().get("itemCopperNail"), 6, 6),
                     Items_1.RecipeComponent(IItem_1.ItemTypeGroup.Hammer, 1, 0),
+                    Items_1.RecipeComponent(ModRegistry_1.Registry().get("itemGroupSaw"), 1, 0),
                 ],
                 skill: IHuman_1.SkillType.Woodworking,
                 level: IItem_1.RecipeLevel.Advanced,
-                reputation: 100,
+                reputation: 25,
             },
             disassemble: true,
-            requiredForDisassembly: [IItem_1.ItemTypeGroup.Hammer],
-            worth: 150,
-            groups: [
-                IItem_1.ItemTypeGroup.Storage
-            ]
+            flammable: true,
+            worth: 75,
+            doodadContainer: ModRegistry_1.Registry().get("doodadWoodCommodeStore"),
+            onUse: {
+                [IAction_1.ActionType.Build]: ModRegistry_1.Registry().get("doodadWoodCommodeStore")
+            },
+            burnsLike: [IItem_1.ItemType.Log, IItem_1.ItemType.Log, IItem_1.ItemType.Log, IItem_1.ItemType.WoodenDowels, IItem_1.ItemType.WoodenDowels]
         })
     ], Town.prototype, "itemWoodCommode", void 0);
     exports.default = Town;

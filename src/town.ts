@@ -4,8 +4,12 @@ import Register, { Registry } from "mod/ModRegistry";
 import { RecipeComponent } from "item/Items";
 import { ItemType, ItemTypeGroup, RecipeLevel } from "item/IItem";
 import { SkillType } from "entity/IHuman";
-import { DoodadTypeGroup } from "doodad/IDoodad";
+import { DoodadTypeGroup, DoodadType } from "doodad/IDoodad";
 import { DamageType } from "entity/IEntity";
+import { ActionType } from "entity/action/IAction";
+import { BiomeType } from "game/IBiome";
+import { WorldZ } from "game/WorldZ";
+import { TerrainType } from "tile/ITerrain";
 
 export default class Town extends Mod {
   //#region Tools
@@ -173,6 +177,7 @@ export default class Town extends Mod {
       skill: SkillType.Blacksmithing,
       reputation: 25
     },
+    repairAndDisassemblyRequiresFire: true,
     disassemble: false,
     worth: 35,
     groups: [
@@ -192,25 +197,66 @@ export default class Town extends Mod {
   public itemCopperNail: ItemType;
   //#endregion
   
+
+  @Register.doodad("Wood Commode Store", {
+    pickUp: [Registry<Town>().get("itemWoodCommode")],
+    weightCapacity: 30,
+    blockMove: true,
+    canBreak: true,
+    repairItem: Registry<Town>().get("itemWoodCommode"),
+    isFlammable: true,
+    particles: {
+        r: 132,
+        g: 96,
+        b: 44
+    },
+    reduceDurabilityOnGather: true,
+    burnsLike: [Registry<Town>().get("itemWoodCommode")],
+    preservationChance: .2,
+    isTall: true,
+    spawnOnWorldGen: {
+        [BiomeType.Coastal]: {
+            [WorldZ.Cave]: {
+                [TerrainType.WoodenFlooring]: 5,
+                [TerrainType.CobblestoneFlooring]: 5
+            },
+            [WorldZ.Overworld]: {
+                [TerrainType.WoodenFlooring]: 1,
+                [TerrainType.CobblestoneFlooring]: 1
+            }
+        },
+        [BiomeType.Arid]: {
+            [WorldZ.Overworld]: {
+                [TerrainType.SandstoneFlooring]: 1,
+                [TerrainType.ClayFlooring]: 1
+            }
+        }
+    }
+  })
+  public doodadWoodCommodeStore: DoodadType;
   //#region Furniture
   @Register.item("Wood Commode", {
-    durability: 100,
+    durability: 15,
+    use: [ActionType.Build],
     recipe: {
       components: [
         RecipeComponent(Registry<Town>().get("itemWoodBoard"), 5, 5),
         RecipeComponent(Registry<Town>().get("itemCopperNail"), 6, 6),
         RecipeComponent(ItemTypeGroup.Hammer, 1, 0),
+        RecipeComponent(Registry<Town>().get("itemGroupSaw"), 1, 0),
       ],
       skill: SkillType.Woodworking,
       level: RecipeLevel.Advanced,
-      reputation: 100,
+      reputation: 25,
     },
     disassemble: true,
-    requiredForDisassembly: [ItemTypeGroup.Hammer],
-    worth: 150,
-    groups: [
-      ItemTypeGroup.Storage
-    ]
+    flammable: true,
+    worth: 75,
+    doodadContainer: Registry<Town>().get("doodadWoodCommodeStore"),
+    onUse: {
+      [ActionType.Build]: Registry<Town>().get("doodadWoodCommodeStore")
+    },
+    burnsLike: [ItemType.Log, ItemType.Log, ItemType.Log, ItemType.WoodenDowels, ItemType.WoodenDowels]
   })
   public itemWoodCommode: ItemType;
   //#endregion
