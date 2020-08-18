@@ -9,4 +9,5 @@ export default class Town extends Mod {
     itemWoodBoard: ItemType;
     itemCopperRods: ItemType;
     itemCopperNail: ItemType;
+    itemWoodCommode: ItemType;
 }

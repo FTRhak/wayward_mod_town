@@ -166,7 +166,7 @@ define(["require", "exports", "mod/Mod", "mod/ModRegistry", "item/Items", "item/
                 reputation: 25
             },
             disassemble: false,
-            worth: 150,
+            worth: 35,
             groups: [
                 IItem_1.ItemTypeGroup.Other
             ]
@@ -176,11 +176,32 @@ define(["require", "exports", "mod/Mod", "mod/ModRegistry", "item/Items", "item/
         ModRegistry_1.default.item("Copper Nail", {
             durability: 20,
             disassemble: false,
-            worth: 150,
+            worth: 15,
             groups: [
                 IItem_1.ItemTypeGroup.Other
             ]
         })
     ], Town.prototype, "itemCopperNail", void 0);
+    __decorate([
+        ModRegistry_1.default.item("Wood Commode", {
+            durability: 100,
+            recipe: {
+                components: [
+                    Items_1.RecipeComponent(ModRegistry_1.Registry().get("itemWoodBoard"), 5, 5),
+                    Items_1.RecipeComponent(ModRegistry_1.Registry().get("itemCopperNail"), 6, 6),
+                    Items_1.RecipeComponent(IItem_1.ItemTypeGroup.Hammer, 1, 0),
+                ],
+                skill: IHuman_1.SkillType.Woodworking,
+                level: IItem_1.RecipeLevel.Advanced,
+                reputation: 100,
+            },
+            disassemble: true,
+            requiredForDisassembly: [IItem_1.ItemTypeGroup.Hammer],
+            worth: 150,
+            groups: [
+                IItem_1.ItemTypeGroup.Storage
+            ]
+        })
+    ], Town.prototype, "itemWoodCommode", void 0);
     exports.default = Town;
 });

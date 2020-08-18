@@ -21,6 +21,14 @@
 			"modTownWoodBoard": [
 				"wood board",
 				"Wood Board"
+			],
+			"modTownCopperRods": [
+				"copper rods",
+				"Copper Rods"
+			],
+			"modTownCopperNail": [
+				"copper nail",
+				"Copper Nail"
 			]
 		},
 		"itemGroup": {

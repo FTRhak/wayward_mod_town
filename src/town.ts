@@ -150,6 +150,7 @@ export default class Town extends Mod {
   public itemWoodBoard: ItemType;
   //#endregion
   
+  //#region Metal
   @Register.item("Copper Rods", {
     durability: 20,
     recipe: {
@@ -173,7 +174,7 @@ export default class Town extends Mod {
       reputation: 25
     },
     disassemble: false,
-    worth: 150,
+    worth: 35,
     groups: [
       ItemTypeGroup.Other
     ]
@@ -183,11 +184,35 @@ export default class Town extends Mod {
   @Register.item("Copper Nail", {
     durability: 20,
     disassemble: false,
-    worth: 150,
+    worth: 15,
     groups: [
       ItemTypeGroup.Other
     ]
   })
   public itemCopperNail: ItemType;
+  //#endregion
+  
+  //#region Furniture
+  @Register.item("Wood Commode", {
+    durability: 100,
+    recipe: {
+      components: [
+        RecipeComponent(Registry<Town>().get("itemWoodBoard"), 5, 5),
+        RecipeComponent(Registry<Town>().get("itemCopperNail"), 6, 6),
+        RecipeComponent(ItemTypeGroup.Hammer, 1, 0),
+      ],
+      skill: SkillType.Woodworking,
+      level: RecipeLevel.Advanced,
+      reputation: 100,
+    },
+    disassemble: true,
+    requiredForDisassembly: [ItemTypeGroup.Hammer],
+    worth: 150,
+    groups: [
+      ItemTypeGroup.Storage
+    ]
+  })
+  public itemWoodCommode: ItemType;
+  //#endregion
   //#endregion
 }
